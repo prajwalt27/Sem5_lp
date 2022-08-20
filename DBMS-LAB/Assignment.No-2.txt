@@ -1,0 +1,114 @@
+Name: Prajwal Toundakar                                                                   Roll No.: 31184
+Subject: DBMS                                                                             Assignment No.: 2
+<---------------------------------------------------------------------------------------------------------------------->
+
+1.	Find the Student details and Placement details using NATURAL JOIN
+>
+select * from student natural join placementdrive;
++----------+------+---------+------+----------+--------------+---------+-----------+
+| Drive_id | S_id | s_name  | CGPA | s_branch | comapny_name | package | location  |
++----------+------+---------+------+----------+--------------+---------+-----------+
+|      122 |    1 | raman   |    9 | COMP     | Microsoft    |  120000 | Pune      |
+|      123 |    2 | giya    |  9.1 | COMP     | Google       |  730000 | Thane     |
+|      125 |    3 | ryuk    |  9.6 | COMP     | Apple        |  524400 | Mumbai    |
+|      126 |    4 | simon   |  9.4 | ENTC     | Meta         |  170000 | Pune      |
+|      127 |    5 | saman   |  9.5 | COMP     | Google       |  128000 |Benguluru  |
+|      128 |    6 | kelvin  |  8.9 | IT       | Amazon       |  250000 | Delhi     |
+|      129 |    7 | tsunade |    9 | ENTC     | Microsoft    |  111000 | Chennai   |
+|      130 |    8 | naruto  |    9 | IT       | EqTech       |  330000 | Thane     |
+|      131 |    9 | sasuke  |  8.9 | IT       | Meta         |  122000 | kolhapur  |
+|      132 |   10 | kakashi |  9.1 | COM      | Goldman Sacs |  228000 | Ratnagiri |
++----------+------+---------+------+----------+--------------+---------+-----------+
+
+2. Find all the student details with company_name
+      >
+ select S_id,Drive_id,s_name,CGPA , s_branch from student natural join training;
++------+----------+---------+------+----------+
+| S_id | Drive_id | s_name  | CGPA | s_branch |
++------+----------+---------+------+----------+
+|    1 |      122 | raman   |    9 | COMP     |
+|    2 |      123 | giya    |  9.1 | COMP     |
+|    3 |      125 | ryuk    |  9.6 | COMP     |
+|    4 |      126 | simon   |  9.4 | ENTC     |
+|    5 |      127 | saman   |  9.5 | COMP     |
+|    6 |      128 | kelvin  |  8.9 | IT       |
+|    7 |      129 | tsunade |    9 | ENTC     |
+|    8 |      130 | naruto  |    9 | IT       |
+|    9 |      131 | sasuke  |  8.9 | IT       |
+|   10 |      132 | kakashi |  9.1 | COMP     |
++------+----------+---------+------+----------+
+3.List all the Student name and Student branch of Student having package 5 LPA
+>
+select s_name, s_branch from student natural join placementdrive where package=500000;
+Empty set (0.00 sec)
+
+4.List all the student names ,company_name having T_fee more than 20000
+>
+select s_name, company_name from student s,training t, placementdrive p where s.Drive_id=p.Drive_id and s.S_id=t.S_id and T_fee>20000;
++---------+----------------+
+| s_name  | company_name   |
++---------+----------------+
+| giya    | Google         |
++---------+----------------+
+
+
+5. Display all training details attended by “shantanu” in year 2011  
+>
+select T_id , t.S_id, company_name,T_fee, T_date from student s, Training t where s.S_id=t.S_id and T_date='2019-01-03' and S_name="raman";
++------+------+--------------+-------+------------+
+| T_id | S_id | company_name | T_fee | T_date     |
++------+------+--------------+-------+------------+
+|  101 |    1 | Microsoft    | 12000 | 2019-01-03 |
++------+------+--------------+-------+------------+
+
+6. list the total number of companies who conducted training before 2015
+>
+select company_name from training where T_date<'2015-01-01';
+Empty set (0.00 sec)
+
+7. List the students name with company ‘Microsoft’ and  location ’Thane’
+>
+select s_name from student s, placementdrive p,training t where s.Drive_id= p.Drive_id and company_name="Microsoft" and location="Thane";
++--------+
+| s_name |
++--------+
+| naruto |
+| giya   |
++---------+
+
+
+
+8. Find  the names of all Students who have joined ‘Microsoft ‘ training  in 2015
+>
+select s_name from student s, placementdrive p, training t where s.S_id=t.S_id and s.Drive_id=p.Drive_id and company_name="Microsoft" and T_date='2015-01-01';
+Empty set (0.00 sec)
+
+9. Create a view showing the Student and Training details.  
+>
+create view std as select s.S_id, s.Drive_id , s.s_name,s.CGPA, s.s_branch, t.company_name,t.T_fee,t.T_date from student s inner join training t on s.S_id=t.S_id;
+Query OK, 0 rows affected (0.04 sec)
+
+mysql> select * from std;
++------+----------+---------+------+----------+--------------+-------+------------+
+| S_id | Drive_id | s_name  | CGPA | s_branch | company_name | T_fee | T_date     |
++------+----------+---------+------+----------+--------------+-------+------------+
+|    1 |      122 | raman   |    9 | COMP     | Microsoft    | 12000 | 2019-01-03 |
+|    2 |      123 | giya    |  9.1 | COMP     | Google       | 23000 | 2019-11-13 |
+|    3 |      125 | ryuk    |  9.6 | COMP     | Apple        | 18000 | 2020-02-01 |
+|    4 |      126 | simon   |  9.4 | ENTC     | Meta         | 12000 | 2019-01-03 |
+|    5 |      127 | saman   |  9.5 | COMP     | Microsoft    | 12000 | 2021-11-11 |
+|    6 |      128 | kelvin  |  8.9 | IT       | Amazon       | 16000 | 2019-01-03 |
+|    7 |      129 | tsunade |    9 | ENTC     | Microsoft    | 13000 | 2022-12-09 |
+|    8 |      130 | naruto  |    9 | IT       | EqTech       | 11000 | 2021-02-11 |
+|    9 |      131 | sasuke  |  8.9 | IT       | meta         | 11000 | 2022-01-13 |
+|   10 |      132 | kakashi |  9.1 | COMP     | Goldman Sacs | 12000 | 2021-11-11 |
++------+----------+---------+------+----------+--------------+-------+------------+
+10 . Perform Manipulation on simple view-Insert, update, delete, drop view.
+>
+create view v1 as select company_name, T_fee, T_date from training where company_name="Microsoft";
+Query OK, 0 rows affected (0.02 sec)
+
+Insert:
+insert into v1 values ("Microsoft",230000,'2015-01-11');
+
+
