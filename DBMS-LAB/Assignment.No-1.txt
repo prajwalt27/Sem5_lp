@@ -1,0 +1,238 @@
+Name: Prajwal Toundakar                                                            Subject: DBMSL
+Roll No. : 31184                                                                   Division: TE1
+Assignment No. : 1
+
+<----------------------------------------------------------------------------------------------------------------------------------->
+Commands/Steps:
+>show databases;
+>use mytable;
+>show tables;
+>create table Dept(Dept_id int primary key, dname varchar(100), dlocation varchar(100));
+>create table Employee(Emp_id int primary key,Dept_id int, fname varchar(200), lname varchar(200),designation varchar(100), salary int, joinDate date, foreign key (Dept_id) references dept(Dept_id) on delete cascade);
+>create table Project(Proj_id int primary key,Dept_id int, Pname varchar(100), Plocation varchar(100), Pcost int, Pyear int, foreign key (Dept_id)references Dept(Dept_id) on delete cascade);
+
+1. Insert at least 10 records in the Employee table and insert other tables accordingly
+->
+insert into Dept values(101,"Computer","A1");
+insert into Dept values(102,"IT","A2");
+insert into Dept values(103,"Entc","A3");
+insert into Dept values(104,"Electrical","A4");
+
+
+
+
+
+select * from dept;
++---------+------------+-----------+
+| Dept_id | dname      | dlocation |
++---------+------------+-----------+
+|     101 | Computer   |    A1     |
+|     102 | IT         |    A2     |
+|     103 | Entc       |    A3     |
+|     104 | Electrical | Mumbai    |
++---------+------------+-----------+
+>insert into Employee values(1,101,"Sunder","Pichai","CEO",99999,'2002-4-1'),(2,102,"Raman","Chadda","CTO",88888,'2003-2-12'),(3,101,"Ranganathan","Madhavan","Mentor",55555,'2004-5,19'),(4,104,"Jenny","Sharma","Employee",45000,'2007-8-23'),(5,101,"Pankaj","Tripathi","Employee",55000,'2010-10-11');
+
+>insert into Employee values(6,101,"Nana","Patekar","Employee",30999,'2018-2-11'),(7,102,"Dakota","Johnson","Employee",30000,'2016-12-12'),(8,101,"Angelina","Jolie","Employee",25555,'2014-2-20'),(9,104,"Virat","kohli","Employee",40000,'2017-8-2'),(10,101,"Rohit","Sharma","Employee",35000,'2020-10-11');
+
+
+
+
+
+
+
+
++-----------+-----------+-----------+----------+-------------+--------+------------+
+| Emp_id    | Dept_id | fname       | lname    | designation | salary | joinDate   |
++-----------+-----------+-----------+----------+-------------+--------+------------+
+|      1    |     101 | Sunder      | Pichai   | CEO         |  99999 | 2002-04-01 |
+|      2    |     102 | Raman       | Chadda   | CTO         |  88888 | 2003-02-12 |
+|      3    |     101 | Ranganathan | Madhavan | Mentor      |  55555 | 2004-05-19 |
+|      4    |     104 | Jenny       | Sharma   | Employee    |  45000 | 2007-08-23 |
+|      5    |     101 | Pankaj      | Tripathi | Employee    |  55000 | 2010-10-11 |
+|      6    |     101 | Nana        | Patekar  | Employee    |  30999 | 2018-02-11 |
+|      7    |     102 | Dakota      | Johnson  | Employee    |  30000 | 2016-12-12 |
+|      8    |     101 | Angelina    | Jolie    | Employee    |  25555 | 2014-02-20 |
+|      9    |     104 | Virat       | kohli    | Employee    |  40000 | 2017-08-02 |
+|     10    |     101 | Rohit       | Sharma   | Employee    |  35000 | 2020-10-11 |
++-----------+---------+-------------+----------+-------------+--------+------------+
+
+>insert into Project values(1,101,"Mentor-Me","Pune",86000,2019);
+>insert into Project values(2,103,"Bunkgram","Mumbai",56000,2008);	
+>insert into Project values(3,102,"Meme-Cloud","Bengluru",66000,2001);
+>insert into Project values(4,104,"Gatsby","Chennai",36000,2007);
+>insert into Project values(5,101,"funmeet","Delhi",76000,2017);
+>insert into Project values(6,102,"Browse-me","Patna",44000,2013);
+>insert into Project values(7,103,"Runchips","Jaipur",24000,2015);
+
+
+
+
+>select * from Project;
++---------+---------+------------+-----------+-------+-------+
+| Proj_id | Dept_id | Pname      | Plocation | Pcost | Pyear |
++---------+---------+------------+-----------+-------+-------+
+|       1 |     101 | Mentor-Me  | Pune      | 86000 |  2019 |
+|       2 |     103 | Bunkgram   | Mumbai    | 56000 |  2008 |
+|       3 |     102 | Meme-Cloud | Bengluru  | 66000 |  2001 |
+|       4 |     104 | Gatsby     | Chennai   | 36000 |  2007 |
+|       5 |     101 | funmeet    | Delhi     | 76000 |  2017 |
+|       6 |     102 | Browse-me  | Patna     | 44000 |  2013 |
+|       7 |     103 | Runchips   | Jaipur    | 24000 |  2015 |
++---------+---------+------------+-----------+-------+-------+
+
+2. Display all Employee details with Department ‘Computer’ and ‘IT’ and Employee.
+->
++------------+-----------+------------+----------+-------------+----------+---------------+
+| Emp_id     | Dept_id   | fname      | lname    | designation | salary   | joinDate      |
++------------+-----------+------------+----------+-------------+----------+---------------+
+|      5     |     101   | Pankaj     | Tripathi | Employee    |  55000   | 2010-10-11    |
++------------+-----------+------------+----------+-------------+----------+---------------+
+
+
+
+
+
+
+3. Lists the number of different Employee Positions
+->
+>select Designation , fname ,lname from Employee;
++-------------+----------------+--------------+
+| Designation | fname          | lname        |
++-------------+----------------+--------------+
+| CEO         | Sunder         | Pichai       |
+| CTO         | Raman          | Chadda       |
+| Mentor      | Ranganathan    | Madhavan     |
+| Employee    | Jenny          | Sharma       |
+| Employee    | Pankaj         | Tripathi     |
+| Employee    | Nana           | Patekar      |
+| Employee    | Dakota         | Johnson      |
+| Employee    | Angelina       |  Jolie       |
+| Employee    | Virat          | kohli        |
+| Employee    | Rohit          | Sharma       |
++-------------+----------------+--------------+
+
+
+4. Give 10% increase in Salary of the Employee whose joindate  before 2015.
+->
+update Employee set salary =salary*1.1 where joinDate<'2015-1-1';
+Query OK, 5 rows affected (0.02 sec)
+Rows matched: 5  Changed: 5  Warnings: 0
+
+
+mysql> select * from Employee;
++--------+---------+-------------+----------+-------------+--------+------------+
+| Emp_id | Dept_id | fname       | lname    | designation | salary | joinDate   |
++--------+---------+-------------+----------+-------------+--------+------------+
+|      1 |     101 | Sunder      | Pichai   | CEO         | 109999 | 2002-04-01 |
+|      2 |     102 | Raman       | Chadda   | CTO         |  97777 | 2003-02-12 |
+|      3 |     101 | Ranganathan | Madhavan | Mentor      |  61111 | 2004-05-19 |
+|      5 |     101 | Pankaj      | Tripathi | Employee    |  60500 | 2010-10-11 |
+|      6 |     101 | Nana        | Patekar  | Employee    |  30999 | 2018-02-11 |
+|      7 |     102 | Dakota      | Johnson  | Employee    |  30000 | 2016-12-12 |
+|      8 |     101 | Angelina    | Jolie    | Employee    |  28111 | 2014-02-20 |
+|     10 |     101 | Rohit       | Sharma   | Employee    |  35000 | 2020-10-11 |
++--------+---------+-------------+----------+-------------+--------+------------+
+5. Delete all the department details having location as ‘mumbai’. 
+->
+>delete from Dept where dlocation="Mumbai";
+Query OK, 1 row affected (0.02 sec)
+
+ 6. Find the names of Projects with location ‘pune’.
+->
+>select * from Project where plocation="PUNE";
++------------+---------+-----------+---------------+-------+-------+
+| Proj_id    | Dept_id | Pname     | Plocation     | Pcost | Pyear |
++------------+---------+-----------+---------------+-------+-------+
+|       1    |     101 | Mentor-Me | Pune          | 86000 |  2019 |
++------------+---------+-----------+---------------+-------+-------+
+
+7. Find the project having cost in between 100000 to 500000.
+select * From Project where pcost>=100000 and pcost<=500000;
+->
++-----------+------------+--------------+------------+---------+---------+
+| Proj_id   | Dept_id    | Pname        | Plocation  | Pcost   | Pyear   |
++-----------+------------+--------------+------------+---------+---------+
+|       1   |     101    | Mentor-Me    | Pune       | 120000  |  2019   |
+|       4   |     104    | Gatsby       | Chennai    | 320000  |  2007   |
++-----------+------------+--------------+------------+---------+---------+
+	
+8. Find the project having maximum price and find average Project cost.
+->
+select max(pcost) from Project;
++-----------------+
+| max(pcost)      |
++-----------------+
+|     320000      |
++-----------------+
+select avg(pcost) from Project;
++-------------------+
+| avg(pcost)        |
++-------------------+
+| 100857.1429       |
++-------------------+
+
+9. Display all employees with Emp _id  and Emp name in descending  order.
+->
+elect Emp_id , fname, lname from Employee order by Emp_id desc;
++-------------+----------------+------------+
+| Emp_id      | fname          | lname      |
++-------------+----------------+------------+
+|     10      | Rohit          | Sharma     |
+|      9      | Virat          | kohli      |
+|      8      | Angelina       | Jolie      |
+|      7      | Dakota         | Johnson    |
+|      6      | Nana           | Patekar    |
+|      5      | Pankaj         | Tripathi   |
+|      4      | Jenny          | Sharma     |
+|      3      | Ranganathan    | Madhavan   |
+|      2      | Raman          | Chadda     |
+|      1      | Sunder         |  Pichai    |
++-------------+----------------+------------+
+
+10. Display Proj_name,Plocation ,Pcost of all project started in 2004,2005,2007
+->
+>select Pname,plocation,pcost from Project where pyear=2004 or pyear=2005 or pyear=2007;
++--------+-----------+----------+
+| Pname  | plocation | pcost    |
++--------+-----------+----------+
+| Gatsby | Chennai   | 320000   |
++--------+-----------+----------+
+#VIEW:
+Creation:
+>create view view1 as select pname , plocation from project where pcost<50000;
+Display:
+>select * from view1;
++-----------+-----------+
+| pname     | plocation |
++-----------+-----------+
+| Browse-me | Patna     |
+| Runchips  | Jaipur    |
++-----------+-----------+
+
+#EXPLAIN:
+explain select * from project;
++----+-------------+---------+------------+------+---------------+------+---------+------+------+----------+-------+
+| id | select_type | table   | partitions | type | possible_keys | key  | key_len | ref  | rows | filtered | Extra |
++----+-------------+---------+------------+------+---------------+------+---------+------+------+----------+-------+
+|  1 | SIMPLE      | project | NULL       | ALL  | NULL          | NULL | NULL    | NULL |    6 |   100.00 | NULL  |
++----+-------------+---------+------------+------+---------------+------+---------+------+------+----------+-------+
+
+
+
+#INDEX:	
+> create index i1 on Dept(dname , dlocation);
+Query OK, 0 rows affected (0.10 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+>select dlocation , dname from Dept;
++-----------+----------------+
+| dlocation | dname          |
++--------------+-------------+
+| A1        | Computer       |
+| A3        | Entc           |
+| A2        | IT             |
++-----------+----------------+
+3 rows in set (0.00 sec)
+
+
+
