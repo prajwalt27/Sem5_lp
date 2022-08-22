@@ -20,8 +20,6 @@ insert into Dept values(104,"Electrical","A4");
 
 
 
-
-
 select * from dept;
 +---------+------------+-----------+
 | Dept_id | dname      | dlocation |
