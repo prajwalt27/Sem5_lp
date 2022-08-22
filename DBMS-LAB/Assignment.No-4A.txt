@@ -1,0 +1,118 @@
+Name : Prajwal Toundakar              Roll No.: 21184
+Division: TE1                         Subject: DBMSL   
+Assignment 4:
+<-------------------------------------------------------------------------------------------------->
+
+1.Created table named AREAS:
+
+>create table areas(radius float, area float);
+Query OK, 0 rows affected (0.06 sec)
+
+>desc areas;
++--------+-------+------+-----+---------+-------+
+| Field  | Type  | Null | Key | Default | Extra |
++--------+-------+------+-----+---------+-------+
+| radius | float | YES  |     | NULL    |       |
+| area   | float | YES  |     | NULL    |       |
++--------+-------+------+-----+---------+-------+
+2 rows in set (0.04 sec)
+
+
+2.PROCEDURE TO FIND AREA OF CIRCLE:
+
+mysql> delimiter //
+mysql>; create procedure AreaCalculation(in r float, out area float)
+    ->; begin 
+    ->; set area =(3.14)*r*r;
+    ->; end //
+Query OK, 0 rows affected (0.00 sec)
+
+
+mysql> CALL AreaCalculation(4.0,@a)//
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> select @a//
++------------------+
+| @a               |
++------------------+
+| 50.2400016784668 |
++------------------+
+
+
+>insert into areas values(4,@a)//
+Query OK, 1 row affected (0.01 sec)
+
+mysql>; select * from areas //
++--------+-------+
+| radius | area  |
++--------+-------+
+|      4 | 50.24 |
++--------+-------+
+1 row in set (0.01 sec)
+</pre>
+
+PROCEDURE TO CALCULATE AREA AND INSERT INTO TABLE:
+
+> create procedure cal_insert(in r float, out area float)
+> begin
+> set area=(3.14)*r*r;
+> insert into AREAS values(r,area);
+> END//
+Query OK, 0 rows affected (0.00 sec)
+
+>call insert_cal(4,@a); //
+Query OK, 1 row affected (0.00 sec)
+
+>call insert_cal(5,@a); //
+Query OK, 1 row affected (0.00 sec)
+
+>call insert_cal(6,@a); //
+Query OK, 1 row affected (0.00 sec)
+
+> select * from areas;
++--------+--------+
+| radius | area   |
++--------+--------+
+|      4 |  50.24 |
+|      5 |   78.5 |
+|      6 | 113.04 |
++--------+--------+
+3 rows in set (0.00 sec)
+
+> call insert_cal(7,@a); //
+Query OK, 1 row affected (0.02 sec)
+
+> call insert_cal(9,@a); //
+Query OK, 1 row affected (0.01 sec)
+
+> call insert_cal(1,@a); //
+Query OK, 1 row affected (0.00 sec)
+
+> call insert_cal(2,@a); //
+Query OK, 1 row affected (0.01 sec)
+
+> call insert_cal(3,@a); //
+Query OK, 1 row affected (0.01 sec)
+
+> call insert_cal(10,@a); //
+Query OK, 1 row affected (0.01 sec)
+
+> call insert_cal(8,@a); //
+Query OK, 1 row affected (0.01 sec)
+
+> select * from areas;//
++--------+--------+
+| radius | area   |
++--------+--------+
+|      4 |  50.24 |
+|      5 |   78.5 |
+|      6 | 113.04 |
+|      7 | 153.86 |
+|      9 | 254.34 |
+|      1 |   3.14 |
+|      2 |  12.56 |
+|      3 |  28.26 |
+|     10 |    314 |
+|      8 | 200.96 |
++--------+--------+
+10 rows in set (0.00 sec)
