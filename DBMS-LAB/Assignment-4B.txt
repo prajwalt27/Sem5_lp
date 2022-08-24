@@ -1,0 +1,98 @@
+Name: Prajwal Toundakar                                      Roll No.: 31184
+Subject: DBMSL                                               Assignment: 4B
+<------------------------------------------------------------------------------------->
+
+Commands:
+
+>create table Borrower(rollno int primary key, name varchar(20),DOI date, bookname varchar(20),status char(2));
+Query OK, 0 rows affected (0.05 sec)
+
+>desc Borrower;
++----------+-------------+------+-----+---------+-------+
+| Field    | Type        | Null | Key | Default | Extra |
++----------+-------------+------+-----+---------+-------+
+| rollno   | int(11)     | NO   | PRI | NULL    |       |
+| name     | varchar(20) | YES  |     | NULL    |       |
+| DOI      | date        | YES  |     | NULL    |       |
+| bookname | varchar(20) | YES  |     | NULL    |       |
+| status   | char(2)     | YES  |     | NULL    |       |
++----------+-------------+------+-----+---------+-------+
+5 rows in set (0.00 sec)
+
+>create table Fine(rollno int, date date,amt int,foreign key(rollno) references Borrower(rollno) on delete cascade);
+Query OK, 0 rows affected (0.04 sec)
+
+>desc Fine;
++--------+---------+------+-----+---------+-------+
+| Field  | Type    | Null | Key | Default | Extra |
++--------+---------+------+-----+---------+-------+
+| rollno | int(11) | YES  | MUL | NULL    |       |
+| date   | date    | YES  |     | NULL    |       |
+| amt    | int(11) | YES  |     | NULL    |       |
++--------+---------+------+-----+---------+-------+
+3 rows in set (0.00 sec)
+
+
+> insert into Borrower values(1,"Prajwal",'2022-01-01','SPOS','I');
+Query OK, 1 row affected (0.02 sec)
+
+> insert into Borrower values(2,"Jemmy",'2022-06-01','TOC','I');
+Query OK, 1 row affected (0.01 sec)
+
+> insert into Borrower values(3,"Suomitra",'2022-07-19','CN','I');
+Query OK, 1 row affected (0.02 sec)
+
+> insert into Borrower values(4,"Kavita",'2022-05-29','DBMS','I');
+Query OK, 1 row affected (0.01 sec)
+
+> insert into Borrower values(5,"Simon",'2022-04-2','DS','I');
+Query OK, 1 row affected (0.02 sec)
+
+
+> select * from Borrower;
++--------+----------+------------+----------+--------+
+| rollno | name     | DOI        | bookname | status |
++--------+----------+------------+----------+--------+
+|      1 | Prajwal  | 2022-01-01 | SPOS     | I      |
+|      2 | Jemmy    | 2022-06-01 | TOC      | I      |
+|      3 | Suomitra | 2022-07-19 | CN       | I      |
+|      4 | Kavita   | 2022-05-29 | DBMS     | I      |
+|      5 | Simon    | 2022-04-02 | DS       | I      |
++--------+----------+------------+----------+--------+
+5 rows in set (0.00 sec)
+
+
+> delimiter//
+mysql> create procedure cal_fine(in rollno int, in name varchar(20))
+    -> begin
+    -> 
+    -> 
+    ->     declare fine int;
+    ->     declare d_o_i int;
+    ->     declare days int;
+    ->  
+    -> 
+    ->     declare exit handler for sqlwarning
+    ->     begin
+    ->        rollback;
+    ->        select 'An Error has occured!!' as message;
+    ->     end;
+    ->     
+    ->     select doi into  d_o_i from Borrower where Borrower.rollno=rollno and Borrower.bookname=name;
+    ->     set days= Datediff(curdate(),d_o_i);
+    ->     
+    ->     if(days>=15 and days<=30) then
+    ->        set fine=days*5;
+    ->     elseif (days>30) then
+    ->        set fine=(days-30)*50+150;
+    ->     end if;
+    ->     
+    ->     update Borrower set status='R' where Borrower.rollno=rollno and Borrower.bookname=name;
+    ->     
+    ->     if(fine is not null) then
+    ->        insert into fine values(rollno,curdate(),fine);
+    ->     end if;
+    -> end; //
+Query OK, 0 rows affected (0.00 sec)
+
+
