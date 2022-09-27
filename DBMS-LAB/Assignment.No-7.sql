@@ -39,7 +39,7 @@ END;
 
 /*for delete*/
 CREATE TRIGGER del_trigg
-AFTER UPDATE ON Library_Table
+AFTER DELETE ON Library_Table
 FOR EACH ROW
 BEGIN
 INSERT INTO Library_Audit SET id=OLD.id , title=OLD.title, total_copies=OLD.total_copies, mod_date=CURDATE(),status ="DELETE";
