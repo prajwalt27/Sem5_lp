@@ -1,0 +1,50 @@
+
+use assin9
+
+assin9> db
+
+//Create
+db.createCollection('Myfirst')
+
+db.Myfirst.insert({'name':"prajwal",'branch':'CE','batch':'N1'})
+
+assin9> db.Myfirst.insertMany([
+{'name':"simon",'branch':'CE','batch':'O11'},
+{'name':"joss",'branch':'IT','batch':'W9'},
+{'name':"sala",'branch':'ENTC','batch':'Y7'},
+{'name':"jemmy",'branch':'MECH','batch':'E4'},
+{'name':"timal",'branch':'CE','batch':'T2'},
+])
+
+//Read
+db.Myfirst.find()
+
+db.Myfirst.count()
+
+db.Myfirst.find({$nor:[{name:'prajwal'},{branch:"CE"}]}).pretty()
+
+db.Myfirst.find({$or:[{name:'prajwal'},{branch:"CE"}]}).pretty()
+
+db.Myfirst.find({$and:[{branch:"CE"},{name:"prajwal"}]}).pretty()
+
+
+
+//Update
+db.Myfirst.updateOne({'name':"simon"},{$set:{batch:'H1'}},{upsert:'true'})
+
+db.Myfirst.updateMany({'name':'sala'},{$set:{batch:'A1', branch:'IT'}})
+
+db.Myfirst.findOneAndUpdate({name:"prajwal"},{$set:{batch:"Q1"}})
+
+
+
+//Delete
+db.Myfirst.deleteOne({name:"joss"})
+
+db.Myfirst.deleteMany({'branch':"IT"},{'batch':"A1"})
+
+db.Myfirst.findOneAndDelete({name:'simon'})
+
+db.Myfirst.drop()
+
+
