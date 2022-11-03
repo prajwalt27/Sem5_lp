@@ -1,8 +1,6 @@
 
 use assin9
 
-assin9> db
-
 //Create
 db.createCollection('Myfirst')
 
