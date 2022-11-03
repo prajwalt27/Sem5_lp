@@ -1,0 +1,60 @@
+//Implementation of mapReduce
+
+use db.assi10
+
+db.createCollection("Class")
+
+db.class.insert([
+  {"name":"prajwal","marks":99,"age":20},
+  {"name":"shreyas","marks":99,"age":20},
+  {"name":"kaushik","marks":96,"age":20},
+  {"name":"praneeth","marks":97,"age":21},
+  {"name":"sahil","marks":88,"age":19},
+  {"name":"yash","marks":100,"age":21},
+  {"name":"sushant","marks":90,"age":19},
+  ])
+
+
+db.class.find().pretty()
+
+var mapfun = function()
+             {
+               emit(this.age,this.marks)
+             }
+
+var redfun = function(key,values)
+             {
+                 return Array.sum(values)
+             }
+
+db.class.mapReduce(
+      mapfun,
+      redfun,
+      {'out':'Result_mapreduce'})
+
+db.Result_mapreduce.find()
+o/p:
+//Here id is according to the age 
+//And those who have same age thier marls got added and assigned to value
+[
+  { _id: 19, value: 178 },  
+  { _id: 20, value: 294 },
+  { _id: 21, value: 197 }
+]
+
+//mapReduce using methods
+
+ db.class.mapReduce(
+     function () {emit(this.age, this.marks);},           //Map Function
+     function (key, values) { return Array.avg(values);}, //Reduce Function
+     { query: { age: { $gt: 18 } },                       //query criteria
+      out: 'Result2_mapreduce' })                         //output document
+
+db.Result2_mapreduce.find()
+o/p:
+[
+  { _id: 20, value: 98 },
+  { _id: 21, value: 98.5 },
+  { _id: 19, value: 89 }
+]
+
