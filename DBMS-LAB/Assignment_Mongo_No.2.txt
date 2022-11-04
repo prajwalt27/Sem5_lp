@@ -1,0 +1,47 @@
+//Indexing in mongodb
+
+db.newclass.insert([
+{'name':'Prajwal' , 'age':20 },
+{'name':'Shreyas', 'age':21 },
+{'name':'Praneeth', 'age':22 }
+])
+
+// single key index -> Index created only on one field 
+db.newclass.createIndex({age:20})
+
+
+// compound key Index -> Index created on more than one field  
+  db.newclass.createIndex({name:1},{age:1})
+
+// Unique index -> no duplicate entry  
+db.newclass.createIndex({name:1},{unique:true})
+//will give error if any duplicate entry is present
+//always prefarable to create unique data entry
+
+//to drop index
+db.class.dropIndex('name')
+
+
+
+//Aggregation
+//db.collection.distinct(field,query)
+
+
+//Aggregation pipeline:  each operator recieves a string of doc. performs transformation on the
+// selected document then passses on the results of the transformation
+// operation1-> operation2 -> operation3 -> Results 
+// pipline operators :-
+
+// $project
+//select roolno,name from student
+db.Agg.aggregate({'$project':{name:1}})
+
+//$group 
+//always group the documents by defining '_id' field
+db.Agg.aggregate({'$group':{'_id' : '$name' , 'count' : {'$sum':1}}})
+
+//match $limit $skip $unwind $sort
+db.Agg.aggregate([{
+  $match:{ status: "completed"}} ,
+ {$group: { _id: "$stud_id" , total :{ $sum:  "$marks"}}},
+ {$sort: {total:-1}}] )
