@@ -35,7 +35,7 @@ db.class.mapReduce(
 db.Result_mapreduce.find()
 o/p:
 //Here id is according to the age 
-//And those who have same age thier marls got added and assigned to value
+//And those who have same age thier marks will get added to value
 [
   { _id: 19, value: 178 },  
   { _id: 20, value: 294 },
