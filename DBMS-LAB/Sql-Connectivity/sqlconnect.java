@@ -102,7 +102,7 @@ public class sqlconnect {
 
             case 4:
                stmt.close();
-               //close collection
+               //close connection
                coll.close();
                System.exit(0);
                break;
